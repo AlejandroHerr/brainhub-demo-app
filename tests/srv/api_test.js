@@ -67,7 +67,7 @@ test('+ Handles POST /api/attendant route', ({ test: subtest }) => {
       t.end();
     });
   });
-  subtest('|-> Handles right request', (t) => {
+  subtest('`-> Handles right request', (t) => {
     request(server)
     .post('/api/attendant')
     .set('Accept', 'application/json')
