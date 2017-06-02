@@ -1,6 +1,6 @@
 import test from 'tape';
 import merge from 'lodash/merge';
-import { initForm, UPDATE_FIELD, submitFormRequest, submitFormFail, submitFormSuccess, resetForm } from '../../src/client/actions';
+import { initForm, destroyForm, UPDATE_FIELD, submitFormRequest, submitFormFail, submitFormSuccess, resetForm } from '../../src/client/actions';
 import reducer, { selectFields, selectIsValid } from '../../src/client/reducers/form';
 
 const defaultState = { fields: {}, isSubmiting: false, error: false, submited: false };
@@ -28,6 +28,24 @@ test('+ Form Reducer', ({ test: subtest }) => {
 
     t.end();
   });
+  subtest('|- Action: DESTROY_FORM', (t) => {
+    const state = buildState({
+      fields: {
+        name: { value: 'Philip K. Dick', touched: true, valid: true, errors: [] },
+        email: { value: 'rick@deckard.com', touched: true, valid: true, errors: [] },
+      },
+      isSubmiting: false,
+      submited: true,
+    });
+    const action = destroyForm();
+    const expectedState = buildState();
+    const nextState = reducer(state, action);
+
+    t.notEqual(nextState, state, 'Doesn\'t mutate state');
+    t.deepEqual(nextState, expectedState, 'Destroys the form');
+    t.end();
+  });
+
   subtest('|- Action: UPDATE_FIELD', (t) => {
     let state = buildState({
       fields: { name: defaultFieldState, email: defaultFieldState },

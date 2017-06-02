@@ -5,6 +5,7 @@ import set from 'lodash/set';
 import size from 'lodash/size';
 import {
   INIT_FORM,
+  DESTROY_FORM,
   UPDATE_FIELD,
   RESET_FORM,
   SUBMIT_FORM_REQUEST,
@@ -19,6 +20,7 @@ const initForm = (state, { payload: { fields } }) => {
 
   return { ...state, fields: defaultFields };
 };
+const destroyForm = () => defaultState;
 const updateField = ({ fields }, { payload }) => {
   const { field, value, valid, errors } = payload;
   return {
@@ -44,6 +46,7 @@ const submitFormSuccess = state => set(resetForm(state), 'submited', true);
 
 export default handleActions({
   [INIT_FORM]: initForm,
+  [DESTROY_FORM]: destroyForm,
   [UPDATE_FIELD]: updateField,
   [SUBMIT_FORM_REQUEST]: submitForm,
   [SUBMIT_FORM_FAIL]: submitFormFail,

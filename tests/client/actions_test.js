@@ -2,6 +2,8 @@ import test from 'tape';
 import {
   INIT_FORM,
   initForm,
+  DESTROY_FORM,
+  destroyForm,
   UPDATE_FIELD,
   updateField,
   RESET_FORM,
@@ -20,6 +22,12 @@ test('+ actions and action creators', ({ test: subtest }) => {
 
     const action = initForm(['name']);
     t.deepEqual(action, { type: INIT_FORM, payload: { fields: ['name'] } }, 'Sets right payload');
+
+    t.end();
+  });
+  subtest('|- DESTROY_FORM', (t) => {
+    const action = destroyForm();
+    t.deepEqual(action, { type: DESTROY_FORM }, 'Creates actions with only type');
 
     t.end();
   });
