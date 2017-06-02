@@ -8,6 +8,6 @@ export default () => ({
     noop();
   },
   dispatchAction(action, middleware) {
-    middleware({ dispatch: this.dispatch })(this.next)(action);
+    return middleware({ dispatch: this.dispatch })(this.next)(action);
   },
 });
