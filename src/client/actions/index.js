@@ -1,6 +1,7 @@
 import { createActions, createAction } from 'redux-actions';
 import isArray from 'lodash/isArray';
 import isNil from 'lodash/isNil';
+import mapValues from 'lodash/mapValues';
 
 export const INIT_FORM = 'INIT_FORM';
 export const DESTROY_FORM = 'DESTROY_FORM';
@@ -36,3 +37,9 @@ export const submitFormRequest = createAction(
   data => data,
   (body = null) => ({ endpoint: 'attendant', body, method: 'POST', onFail: submitFormFail, onSuccess: submitFormSuccess }),
 );
+
+export const submitFormThunk = () => (dispatch, getState) => {
+  const data = mapValues(getState().form.fields, 'value');
+
+  dispatch(submitFormRequest(data));
+};
