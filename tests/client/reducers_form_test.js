@@ -1,7 +1,7 @@
 import test from 'tape';
 import merge from 'lodash/merge';
 import { initForm, UPDATE_FIELD, submitFormRequest, submitFormFail, submitFormSuccess, resetForm } from '../../src/client/actions';
-import reducer from '../../src/client/reducers/form';
+import reducer, { selectFields, selectIsValid } from '../../src/client/reducers/form';
 
 const defaultState = { fields: {}, isSubmiting: false, error: false, submited: false };
 const defaultFieldState = { value: '', touched: false, valid: false, errors: [] };
@@ -127,7 +127,7 @@ test('+ Form Reducer', ({ test: subtest }) => {
 
     t.end();
   });
-  subtest('`- Action: RESET_FORM', (t) => {
+  subtest('||- Action: RESET_FORM', (t) => {
     const state = buildState({
       fields: {
         name: { value: 'Philip K. Dick', touched: true, valid: true, errors: [] },
@@ -147,6 +147,23 @@ test('+ Form Reducer', ({ test: subtest }) => {
 
     t.notEqual(nextState, state, 'Doesn\'t mutate state');
     t.deepEqual(nextState, expectedState, 'Resets the form');
+    t.end();
+  });
+  subtest('|- selectFields', (t) => {
+    const state = buildState();
+    t.equal(selectFields({ form: state }), state.fields, 'Should return the fields key');
+
+    t.end();
+  });
+  subtest('`- selectIsValid', (t) => {
+    t.notOk(selectIsValid({ form: buildState() }), 'Is invalid if there\'s no fields');
+    t.notOk(selectIsValid({ form: buildState({ fields: { name: defaultFieldState, surname: defaultFieldState } }) }), 'Is invalid if fields are not touched and valid');
+    const validFields = { name: { valid: true, touched: true }, surname: { valid: true, touched: true } };
+    t.ok(selectIsValid({ form: buildState({ fields: validFields }) }), 'Is invalid if fields are not touched and valid');
+    t.notOk(selectIsValid({ form: buildState({ fields: validFields, isSubmiting: true }) }), 'Is invalid if form is submiting');
+    t.notOk(selectIsValid({ form: buildState({ fields: validFields, error: true }) }), 'Is invalid if form is in error');
+    t.notOk(selectIsValid({ form: buildState({ fields: validFields, submited: true }) }), 'Is invalid if form is submited');
+
     t.end();
   });
 });
