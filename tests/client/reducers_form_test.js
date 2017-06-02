@@ -127,7 +127,7 @@ test('+ Form Reducer', ({ test: subtest }) => {
 
     t.end();
   });
-  subtest('||- Action: RESET_FORM', (t) => {
+  subtest('|- Action: RESET_FORM', (t) => {
     const state = buildState({
       fields: {
         name: { value: 'Philip K. Dick', touched: true, valid: true, errors: [] },
