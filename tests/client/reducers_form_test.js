@@ -1,6 +1,6 @@
 import test from 'tape';
 import merge from 'lodash/merge';
-import { initForm, UPDATE_FIELD, submitFormSuccess, resetForm } from '../../src/client/actions';
+import { initForm, UPDATE_FIELD, submitFormRequest, submitFormFail, submitFormSuccess, resetForm } from '../../src/client/actions';
 import reducer from '../../src/client/reducers/form';
 
 const defaultState = { fields: {}, isSubmiting: false, error: false, submited: false };
@@ -14,7 +14,7 @@ test('+ Form Reducer', ({ test: subtest }) => {
     t.end();
   });
   subtest('|- Action: INIT_FORM', (t) => {
-    const state = { fields: {}, isSubmiting: false, message: null };
+    const state = defaultState;
     const action = initForm(['name', 'email']);
     const nextState = reducer(state, action);
     const expectedState = buildState({
@@ -29,16 +29,16 @@ test('+ Form Reducer', ({ test: subtest }) => {
     t.end();
   });
   subtest('|- Action: UPDATE_FIELD', (t) => {
-    let state = {
+    let state = buildState({
       fields: { name: defaultFieldState, email: defaultFieldState },
-      isSubmiting: false,
-      message: null,
-    };
+      submited: true,
+      error: true,
+    });
     let action = {
       type: UPDATE_FIELD,
       payload: {
         field: 'name',
-        value: 'Philip',
+        value: '',
         valid: false,
         errors: ['Name can\'t be empty'],
       },
@@ -46,7 +46,7 @@ test('+ Form Reducer', ({ test: subtest }) => {
     let expectedState = buildState({
       fields: {
         ...state.fields,
-        name: { value: 'Philip', touched: true, valid: false, errors: ['Name can\'t be empty'] },
+        name: { value: '', touched: true, valid: false, errors: ['Name can\'t be empty'] },
       } });
     let nextState = reducer(state, action);
     t.notEqual(nextState, state, 'Doesn\'t mutate state');
@@ -74,27 +74,57 @@ test('+ Form Reducer', ({ test: subtest }) => {
     t.end();
   });
 
-  subtest('|- Action: SUBMIT_FORM', (t) => {
-    const state = buildState({
+  subtest('|- Actions: SUBMIT_FORM', (t) => {
+    // SUBMIT_FORM_REQUEST
+    let state = buildState({
+      fields: {
+        name: { value: 'Philip K. Dick', touched: true, valid: true, errors: [] },
+        email: { value: 'rick@deckard.com', touched: true, valid: true, errors: [] },
+      },
+    });
+    let expectedState = buildState({
       fields: {
         name: { value: 'Philip K. Dick', touched: true, valid: true, errors: [] },
         email: { value: 'rick@deckard.com', touched: true, valid: true, errors: [] },
       },
       isSubmiting: true,
     });
+    let nextState = reducer(state, submitFormRequest());
+    t.notEqual(nextState, state, 'SUBMIT_FORM_REQUEST doesn\'t mutate state');
+    t.deepEqual(nextState, expectedState, 'SUBMIT_FORM_REQUEST sets isSubmiting');
 
-    const action = submitFormSuccess();
-    const expectedState = buildState({
+    // SUBIT_FORM_FAIL
+    state = nextState;
+    expectedState = buildState({
+      fields: {
+        name: { value: 'Philip K. Dick', touched: true, valid: true, errors: [] },
+        email: { value: 'rick@deckard.com', touched: true, valid: true, errors: [] },
+      },
+      error: true,
+    });
+    nextState = reducer(state, submitFormFail());
+    t.notEqual(nextState, state, 'SUBMIT_FORM_FAIL doesn\'t mutate state');
+    t.deepEqual(nextState, expectedState, 'SUBMIT_FORM_FAIL sets error');
+
+    // SUBMIT_FORM_SUCCESS
+    state = buildState({
+      fields: {
+        name: { value: 'Philip K. Dick', touched: true, valid: true, errors: [] },
+        email: { value: 'rick@deckard.com', touched: true, valid: true, errors: [] },
+      },
+      isSubmiting: true,
+    });
+    expectedState = buildState({
       fields: {
         name: defaultFieldState,
         email: defaultFieldState,
       },
       submited: true,
     });
-    const nextState = reducer(state, action);
+    nextState = reducer(state, submitFormSuccess());
+    t.notEqual(nextState, state, 'SUBMIT_FORM_SUCCESS doesn\'t mutate state');
+    t.deepEqual(nextState, expectedState, 'SUBMIT_FORM_SUCCESS sets submited');
 
-    t.notEqual(nextState, state, 'Doesn\'t mutate state');
-    t.deepEqual(nextState, expectedState, 'Resets the form');
     t.end();
   });
   subtest('`- Action: RESET_FORM', (t) => {
@@ -120,5 +150,3 @@ test('+ Form Reducer', ({ test: subtest }) => {
     t.end();
   });
 });
-
-// test('', (t) => { t.end(); });
