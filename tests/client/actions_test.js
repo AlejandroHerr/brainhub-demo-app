@@ -50,9 +50,16 @@ test('+ actions and action creators', ({ test: subtest }) => {
 
     t.end();
   });
-  subtest('`- SUBMIT_FORM_SUCCESS', (t) => {
-    const action = submitFormSuccess({ message: 'Attendant created' });
-    t.deepEqual(action, { type: SUBMIT_FORM_SUCCESS, payload: { message: 'Attendant created' } }, 'Sets default payload');
+  subtest('`- SUBMIT_FORM Actions', (t) => {
+    let action = submitFormSuccess({ message: 'Success' });
+    t.deepEqual(action, { type: SUBMIT_FORM_SUCCESS, payload: { message: 'Success' } }, 'SUBMIT_FORM_SUCCESS should be an identity action');
+    action = submitFormFail({ message: 'Fail' });
+    t.deepEqual(action, { type: SUBMIT_FORM_FAIL, payload: { message: 'Fail' } }, 'SUBMIT_FORM_FAIL should be an identity action');
+    action = submitFormRequest({ name: 'Alejandro' });
+    t.equal(action.type, SUBMIT_FORM_REQUEST, 'submitFormRequest set the right action Type');
+    t.deepEqual(action.payload, { name: 'Alejandro' }, 'submitFormRequest set the right payload');
+    t.deepEqual(action.meta, { endpoint: 'attendant', body: { name: 'Alejandro' }, method: 'POST', onFail: submitFormFail, onSuccess: submitFormSuccess },
+      'submitFormRequest sets the meta payload with the fetch data');
 
     t.end();
   });
