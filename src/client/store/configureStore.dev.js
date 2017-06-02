@@ -2,14 +2,16 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import validator from '../middleware/validator';
 import rootReducer from '../reducers';
+import fetcher from './configureFetcher';
 
 const configureStore = (preloadedState) => {
   const store = createStore(
     rootReducer,
     preloadedState,
     composeWithDevTools(
-      applyMiddleware(thunk, logger),
+      applyMiddleware(thunk, validator, fetcher, logger),
       ),
   );
 
