@@ -1,24 +1,14 @@
 import test from 'tape';
 import { spy } from 'sinon';
 import constant from 'lodash/constant';
-import noop from 'lodash/noop';
 import { createValidatorMiddleware } from '../../src/client/middleware/validator';
+import createMockStore from '../../src/common/mock/store';
 
 test('+ middleware > validator', ({ test: subtest, throws, end }) => {
   throws(createValidatorMiddleware, 'Validator middleware should be created with a validator function');
 
   const mockValidator = constant({ valid: false, errors: [] });
-  const store = {
-    dispatch() {
-      noop();
-    },
-    next() {
-      noop();
-    },
-    dispatchAction(action, middleware) {
-      middleware({ dispatch: this.dispatch })(this.next)(action);
-    },
-  };
+  const store = createMockStore();
 
   const validatorSpy = spy(mockValidator);
   const dispatchSpy = spy(store, 'dispatch');
