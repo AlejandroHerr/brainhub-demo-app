@@ -1,7 +1,7 @@
 import isString from 'lodash/isString';
 import size from 'lodash/size';
 
-const msg = 'Field can\'t be empty';
+const msg = 'Cannot be empty';
 
 const test = (value) => {
   if (!isString(value)) return false;
