@@ -31,7 +31,6 @@ const updateField = ({ fields }, { payload }) => {
     },
   };
 };
-
 const resetForm = ({ fields }) => {
   const defaultFields = reduce(fields, (rFields, val, field) => set(rFields, field, defaultField), {});
 
