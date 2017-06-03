@@ -3,7 +3,7 @@ import test from 'tape';
 import { shallow } from 'enzyme';
 import Label from '../../src/client/component/Label';
 
-test('+ component > SubmitButton', ({ test: subtest }) => {
+test('+ component > Label', ({ test: subtest }) => {
   const props = {
     displayName: 'Display Name',
     name: 'useremail',
@@ -14,9 +14,8 @@ test('+ component > SubmitButton', ({ test: subtest }) => {
 
   subtest('|- Normal label', (t) => {
     const labels = wrapper.find('label');
-    t.ok(labels.exists(), 'Should render Input component');
+    t.ok(labels.exists(), 'Should render Label component');
     const label = labels.first();
-    t.ok(label, 'Renders label element');
     t.ok(label.hasClass('label'), 'label has default class');
     t.equal(label.prop('children'), 'Display Name', 'label has right for');
     t.equal(label.prop('htmlFor'), 'useremail', 'label has right htmlFor');
@@ -26,9 +25,8 @@ test('+ component > SubmitButton', ({ test: subtest }) => {
   subtest('|- Invalid label', (t) => {
     wrapper.setProps({ ...props, touched: true });
     const labels = wrapper.find('label');
-    t.ok(labels.exists(), 'Should render Input component');
+    t.ok(labels.exists(), 'Should render Label component');
     const label = labels.first();
-    t.ok(label, 'Renders label element');
     t.ok(label.hasClass('label'), 'label has default class');
     t.ok(label.hasClass('label--invalid'), 'label has status class');
     t.equal(label.prop('children'), 'Display Name', 'label has right for');
@@ -39,9 +37,8 @@ test('+ component > SubmitButton', ({ test: subtest }) => {
   subtest('`- Valid label', (t) => {
     wrapper.setProps({ ...props, touched: true, valid: true });
     const labels = wrapper.find('label');
-    t.ok(labels.exists(), 'Should render Input component');
+    t.ok(labels.exists(), 'Should render Label component');
     const label = labels.first();
-    t.ok(label, 'Renders label element');
     t.ok(label.hasClass('label'), 'label has default class');
     t.ok(label.hasClass('label--valid'), 'label has status class');
     t.equal(label.prop('children'), 'Display Name', 'label has right for');

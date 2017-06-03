@@ -3,7 +3,7 @@ import test from 'tape';
 import { shallow } from 'enzyme';
 import Input from '../../src/client/component/Input';
 
-test('+ component > SubmitButton', ({ test: subtest }) => {
+test('+ component > Input', ({ test: subtest }) => {
   const props = {
     displayName: 'Display Name',
     name: 'useremail',
