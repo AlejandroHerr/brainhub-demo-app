@@ -39,7 +39,7 @@ class Form extends PureComponent {
   render() {
     const { actions: { onSubmit } } = this.props;
     const { title, error, isSubmiting, submited, isValid } = this.props;
-    return (<div className="border-box clearfix col-12 sm-col-6 border p2 mx-auto">
+    return (<div className="border-box clearfix col-12 sm-col-6 p2 mx-auto">
       <div className="col col-12 center"><h1 className="h2">{title}</h1></div>
       {this.renderFields()}
       <div className="border-box clearfix col-12 sm-col-8 mx-auto my2">
