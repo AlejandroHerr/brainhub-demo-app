@@ -7,16 +7,16 @@ The code is mostly written in ES6, hence it needs babel and babel-cli (to run th
 
 All the scripts below allow to customize the server and mongodb url. It defaults to http://localhost:3000 and mongodb://localhost:27017/brainhub-demo.
 ### Client
-They client is bundled with webpack.
+The client is bundled with webpack.
 The commands to build are self explanatory:
 - `npm run build:build`
 - `npm run build:watch`: It actually launches the backend server with webpack's dev and hot middleware (it enables hot-loading). Requires babel-node
-- `npm run build:prod`: Additionally it creates a bundle's size report.
+- `npm run build:prod`: Additionally, it creates a bundle's size report.
 ### Server
 `npm run srv:watch` runs nodemon to reload the server on changes during development.
 
 ## Tests
-For testing, just execute `npm test`.
+For testing just execute `npm test`.
 The tests use [tape](https://github.com/substack/tape), and they run with `babel-tape-runner` and `tap-summary` to prettify the output.
 
 ## Overview
@@ -38,7 +38,7 @@ The configuration of the form lays under `src/common/form/index.js`, and it cont
 ```
 Validation is an array of strings representing the validators used. There's a common validator function under `src/common/validator` that allows to configure the validators used. Validation is applied both in the client and in the server side (in case someone acces the api directly) via middlewares.
 ### Client
-The `Form` container takes the form configuration directly from the former file, and dynamically inits the field in the redux store.
+The `Form` container takes the form configuration directly from the former file, and dynamically inits the fields in the redux store.
 #### fetcher
 The `fetcher` middleware takes to arguments. The endpoint counfiguration (`{ scheme = 'http', domain = 'localhost', port = '80', route = '' }`) and a function to determine if the action is a fetching request or no.
 
