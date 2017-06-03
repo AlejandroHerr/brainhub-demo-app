@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { onlyUpdateForKeys } from 'recompose';
+import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import Input from './Input';
 import InputErrors from './InputErrors';
 import Label from './Label';

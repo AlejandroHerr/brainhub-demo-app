@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withHandlers } from 'recompose';
-import classNames from 'classnames/bind';
+import withHandlers from 'recompose/withHandlers';
+import classNames from 'classnames';
 
 const baseClasses = ['input', 'border-box', 'p1'];
 const classnames = (touched, valid) => classNames(baseClasses, {

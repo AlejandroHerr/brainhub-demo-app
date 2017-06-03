@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { branch, renderNothing } from 'recompose';
+import branch from 'recompose/branch';
+import renderNothing from 'recompose/renderNothing';
 import map from 'lodash/map';
 import size from 'lodash/size';
 import ErrorMsg from './ErrorMsg';

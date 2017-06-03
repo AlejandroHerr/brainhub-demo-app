@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames/bind';
+import classNames from 'classnames';
 
 const baseClasses = ['h4', 'label'];
 const classnames = (touched, valid) => classNames(baseClasses, {
