@@ -16,7 +16,7 @@ test('+ component > Input', ({ test: subtest }) => {
   const wrapper = shallow(<Input {...props} />);
 
   subtest('|- Normal input', (t) => {
-    const inputWrapper = wrapper.find('Input');
+    const inputWrapper = wrapper.find('BaseInput');
     t.ok(inputWrapper.exists(), 'Should render Input component');
     const input = inputWrapper.render().find('input');
     t.ok(input, 'Renders input element');
@@ -30,7 +30,7 @@ test('+ component > Input', ({ test: subtest }) => {
   });
   subtest('|- Invalid input', (t) => {
     wrapper.setProps({ ...props, touched: true });
-    const inputWrapper = wrapper.find('Input');
+    const inputWrapper = wrapper.find('BaseInput');
     t.ok(inputWrapper.exists(), 'Should render Input component');
     const input = inputWrapper.render().find('input');
     t.ok(input, 'Renders input element');
@@ -45,7 +45,7 @@ test('+ component > Input', ({ test: subtest }) => {
   });
   subtest('|- Valid input', (t) => {
     wrapper.setProps({ ...props, touched: true, valid: true });
-    const inputWrapper = wrapper.find('Input');
+    const inputWrapper = wrapper.find('BaseInput');
     t.ok(inputWrapper.exists(), 'Should render Input component');
     const input = inputWrapper.render().find('input');
     t.ok(input, 'Renders input element');
