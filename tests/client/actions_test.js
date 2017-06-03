@@ -1,4 +1,6 @@
 import test from 'tape';
+import { spy } from 'sinon';
+import constant from 'lodash/constant';
 import {
   INIT_FORM,
   initForm,
@@ -13,7 +15,8 @@ import {
   SUBMIT_FORM_REQUEST,
   submitFormRequest,
   SUBMIT_FORM_FAIL,
-  submitFormFail } from '../../src/client/actions';
+  submitFormFail,
+  submitFormThunk } from '../../src/client/actions';
 
 test('+ actions and action creators', ({ test: subtest }) => {
   subtest('|- INIT_FORM', (t) => {
@@ -58,7 +61,7 @@ test('+ actions and action creators', ({ test: subtest }) => {
 
     t.end();
   });
-  subtest('`- SUBMIT_FORM Actions', (t) => {
+  subtest('|- SUBMIT_FORM Actions', (t) => {
     let action = submitFormSuccess({ message: 'Success' });
     t.deepEqual(action, { type: SUBMIT_FORM_SUCCESS, payload: { message: 'Success' } }, 'SUBMIT_FORM_SUCCESS should be an identity action');
     action = submitFormFail({ message: 'Fail' });
@@ -69,6 +72,17 @@ test('+ actions and action creators', ({ test: subtest }) => {
     t.deepEqual(action.meta, { endpoint: 'attendant', body: { name: 'Alejandro' }, method: 'POST', onFail: submitFormFail, onSuccess: submitFormSuccess },
       'submitFormRequest sets the meta payload with the fetch data');
 
+    t.end();
+  });
+  subtest('`- submitFormThunk', (t) => {
+    const dispatch = constant(null);
+    const getState = () => ({ form: { fields: { name: { value: 'Alejandro' }, surname: { value: 'Hernandez' } } } });
+    const dispatchSpy = spy(dispatch);
+
+    submitFormThunk()(dispatchSpy, getState);
+    t.ok(dispatchSpy.calledOnce, 'Should call dispatch once');
+    t.ok(dispatchSpy.withArgs(submitFormRequest({ name: 'Alejandro', surname: 'Hernandez' })),
+      'Should call dispatch with a submitFormRequest action');
     t.end();
   });
 });
