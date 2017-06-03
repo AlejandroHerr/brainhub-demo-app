@@ -68,7 +68,9 @@
   "scripts": {
     "build:watch": "cross-env NODE_ENV=development ADDR=\"localhost\" PORT=\"3000\" MONGO_ADDR=\"localhost\" MONGO_PORT=\"27017\" MONGO_DB=\"brainhub-demo\" babel-node ./tools/devServer",
     "build:dev": "cross-env NODE_ENV=development ADDR=\"localhost\" PORT=\"3000\" MONGO_ADDR=\"localhost\" MONGO_PORT=\"27017\" MONGO_DB=\"brainhub-demo\" webpack --config ./tools/webpack/index.js",
+    "build:prod": "cross-env NODE_ENV=production ADDR=\"localhost\" PORT=\"3000\" MONGO_ADDR=\"localhost\" MONGO_PORT=\"27017\" MONGO_DB=\"brainhub-demo\" webpack --config ./tools/webpack/index.js",
     "srv:watch": "cross-env NODE_ENV=development ADDR=\"localhost\" PORT=\"3000\" MONGO_ADDR=\"localhost\" MONGO_PORT=\"27017\" MONGO_DB=\"brainhub-demo\" nodemon src/srv/index.js -x babel-node -w src/srv/",
+    "start": "npm run build:prod && cross-env NODE_ENV=development ADDR=\"localhost\" PORT=\"3000\" MONGO_ADDR=\"localhost\" MONGO_PORT=\"27017\" MONGO_DB=\"brainhub-demo\" babel-node src/srv/index.js",
     "test": "cross-env NODE_ENV=development MONGO_ADDR=\"localhost\" MONGO_PORT=\"27018\" MONGO_DB=\"brainhub-demo\" babel-tape-runner tests/**/*_test.js | tap-summary"
   }
 }
