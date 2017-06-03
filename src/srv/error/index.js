@@ -1,5 +1,5 @@
-const errorBadRequest = new Error('Not Found');
-errorBadRequest.status = 404;
+const errorBadRequest = new Error('Bad Request');
+errorBadRequest.status = 400;
 
 export const badRequest = errorBadRequest;
 
