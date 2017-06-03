@@ -1,18 +1,8 @@
 import React from 'react';
 import test from 'tape';
-import { spy } from 'sinon';
 import { shallow } from 'enzyme';
 import Input from '../../src/client/component/Input';
-/*
-SubmitButton.propTypes = {
-  disabled: PropTypes.bool.isRequired,
-  error: PropTypes.bool.isRequired,
-  isSubmiting: PropTypes.bool.isRequired,
-  submited: PropTypes.bool.isRequired,
-  text: PropTypes.string.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-};
-*/
+
 test('+ component > SubmitButton', ({ test: subtest }) => {
   const props = {
     displayName: 'Display Name',
