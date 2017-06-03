@@ -18,9 +18,20 @@ module.exports = {
         ],
         loader: 'babel-loader',
         options: {
-          presets: ['es2015'],
-          plugins: ['transform-react-jsx', 'transform-object-rest-spread'],
+          presets: ['es2015', 'react'],
+          plugins: ['transform-object-rest-spread'],
         },
+      },
+      {
+        test: {
+          test: /\.css$/,
+          not: [/style\.css$/],
+        },
+        use: [
+          'style-loader?sourceMap',
+          'css-loader?importLoaders=1',
+          'postcss-loader',
+        ],
 
       },
     ],
@@ -28,8 +39,8 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        BACKEND: JSON.stringify(process.env.BACKEND),
-        BACKEND_PORT: JSON.stringify(process.env.BACKEND_PORT),
+        ADDR: JSON.stringify(process.env.ADDR),
+        PORT: JSON.stringify(process.env.PORT),
       },
     }),
     new HtmlWebpackPlugin({

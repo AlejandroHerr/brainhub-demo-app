@@ -8,7 +8,6 @@
     ],
     "rules": {
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "react/prefer-stateless-function": [1, { "ignorePureComponents": true }],
       "react/jsx-sort-props": [1, { "callbacksLast": true }],
       "react/sort-prop-types": [1, { "callbacksLast": true }]
