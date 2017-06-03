@@ -12,6 +12,7 @@ test('+ component > ErrorMsg', (t) => {
   const errors = wrapper.find('p');
 
   t.ok(errors.exists(), 'Should render p component');
+  const error = errors.first();
   t.equal(error.prop('children'), props.error, 'ErrorMsg has right message');
 
   t.end();
