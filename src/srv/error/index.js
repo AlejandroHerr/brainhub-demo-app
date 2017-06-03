@@ -22,3 +22,8 @@ const errorUnsupportedMediaType = new Error('Unsupported Media Type');
 errorUnsupportedMediaType.status = 415;
 
 export const unsupportedMediaType = errorUnsupportedMediaType;
+
+const errorInternalServerError = new Error('internal Server Error');
+errorInternalServerError.status = 500;
+
+export const internalServerError = errorInternalServerError;
