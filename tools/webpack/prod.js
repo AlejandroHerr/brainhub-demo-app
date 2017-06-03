@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const path = require('path');
 const baseConfig = require('./base.js');
 
@@ -30,5 +31,10 @@ module.exports = webpackMerge(baseConfig, {
       sourceMap: true,
     }),
     new ExtractTextPlugin('main.css'),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      reportFilename: 'report.html',
+      openAnalyzer: false,
+    }),
   ],
 });
