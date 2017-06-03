@@ -1,7 +1,6 @@
 import { MongoClient } from 'mongodb';
 import server from './server';
 
-console.log(`mongodb://${process.env.MONGO_ADDR}:${process.env.MONGO_PORT}/${process.env.MONGO_DB}`);
 MongoClient.connect(`mongodb://${process.env.MONGO_ADDR}:${process.env.MONGO_PORT}/${process.env.MONGO_DB}`, (err, database) => {
   if (err) throw err;
 
