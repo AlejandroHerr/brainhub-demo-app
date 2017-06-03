@@ -36,7 +36,6 @@
     "superagent": "^3.5.2",
     "supertest": "^3.0.0",
     "tape": "^4.6.3",
-    "urijs": "^1.18.10",
     "webpack": "^2.6.1",
     "webpack-dashboard": "^0.4.0",
     "webpack-dev-middleware": "^1.10.2",
@@ -63,7 +62,9 @@
     "postcss-cssnext": "^2.11.0",
     "postcss-loader": "^2.0.5",
     "style-loader": "^0.18.1",
-    "tap-summary": "^3.0.2"
+    "tap-summary": "^3.0.2",
+    "webpack-bundle-analyzer": "^2.8.2",
+    "webpack-bundle-size-analyzer": "^2.7.0"
   },
   "scripts": {
     "build:watch": "cross-env NODE_ENV=development ADDR=\"localhost\" PORT=\"3000\" MONGO_ADDR=\"localhost\" MONGO_PORT=\"27017\" MONGO_DB=\"brainhub-demo\" babel-node ./tools/devServer",

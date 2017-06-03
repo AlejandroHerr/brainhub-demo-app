@@ -1,6 +1,5 @@
 /* global fetch */
 import 'isomorphic-fetch';
-import URI from 'urijs';
 import isNil from 'lodash/isNil';
 
 export const checkStatus = (res) => {
@@ -14,15 +13,8 @@ export const checkStatus = (res) => {
   throw err;
 };
 
-export const configureUri = ({ scheme = 'http', domain = 'localhost', port = '80', route = '' } = {}) => {
-  const uri = new URI('')
-    .domain(domain)
-    .scheme(scheme)
-    .port(port)
-    .directory(route);
-
-  return endpoint => uri.filename(endpoint).toString();
-};
+export const configureUri = ({ scheme = 'http', domain = 'localhost', port = '80', route = '' } = {}) => endpoint =>
+  `${scheme}://${domain}:${port}/${route ? `${route}/` : ''}${endpoint}`;
 
 export default (isFetcherAction, options = {}) => {
   const endpointUrl = configureUri(options);
