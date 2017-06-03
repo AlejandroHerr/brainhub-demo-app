@@ -9,17 +9,19 @@ const classnames = (touched, valid) => classNames(baseClasses, {
   'input--valid': touched && valid,
 });
 
-export const Input = ({ displayName, name, type, touched, valid, value, onChange }) => (
-  <input
-    className={classnames(touched, valid)}
-    name={name}
-    placeholder={displayName}
-    type={type}
-    value={value}
-    onChange={onChange}
-  />);
+export const BaseInput = ({ displayName, name, type, touched, valid, value, onChange }) => (
+  <div className="border-box sm-col col-12 mx-auto">
+    <input
+      className={classnames(touched, valid)}
+      name={name}
+      placeholder={displayName}
+      type={type}
+      value={value}
+      onChange={onChange}
+    />
+  </div>);
 
-Input.propTypes = {
+BaseInput.propTypes = {
   displayName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   touched: PropTypes.bool.isRequired,
@@ -31,4 +33,4 @@ Input.propTypes = {
 
 export default withHandlers({
   onChange: props => event => props.onUpdate(props.name, event.target.value, props.validators),
-})(Input);
+})(BaseInput);
