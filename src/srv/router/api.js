@@ -31,7 +31,7 @@ router.post('/attendant', checkJsonHeaders, jsonParser, hasBody, validator, (req
 
 router.all('*', (req, res, next) => next(httpError.notFound));
 
-
+// Error handler
 router.use((err, req, res, next) => res
     .status(err.status)
     .json({ code: err.status, message: err.message, meta: err.meta }));

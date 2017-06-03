@@ -32,11 +32,10 @@ export default (isFetcherAction, options = {}) => {
     if (!isFetcherAction(type)) {
       return next(action);
     }
+
+    // Send the request action through
     next(action);
 
-    /*
-    Do some checks (meta, endpoint,...)
-   */
     const { endpoint, body, method, onSuccess, onFail } = meta;
 
     const request = { method };

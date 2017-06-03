@@ -8,6 +8,10 @@ import some from 'lodash/some';
 import defaultValidator from '../../common/validator';
 import { badRequest } from '../error';
 
+/*
+  Validates the fields of the form and returns an array
+  with the errors in the form { name<string>, valid<bool>, message<string>}
+ */
 const validate = (data, fields, validator) => {
   const validation = map(fields, (field) => {
     const result = validator(get(data, field.name, null), field.validators);
