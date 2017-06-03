@@ -7,7 +7,6 @@ import Form from './container/Form';
 const Root = ({ store }) => (
   <Provider store={store}>
     <div>
-      <h1>Hello World!</h1>
       <Form />
     </div>
   </Provider>
