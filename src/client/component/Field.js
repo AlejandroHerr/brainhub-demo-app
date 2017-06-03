@@ -16,7 +16,12 @@ const Field = ({
   value,
   onUpdate }) => (
     <div className="border-box clearfix col-12 sm-col-8 mx-auto my1">
-      <Label displayName={displayName} name={name} />
+      <Label
+        displayName={displayName}
+        name={name}
+        touched={touched}
+        valid={valid}
+      />
       <Input
         displayName={displayName}
         name={name}
